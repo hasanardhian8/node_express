@@ -1,0 +1,40 @@
+const router = require("express").Router();
+
+const UserRoute = require("./UserRoute");
+const PlacementRoute = require("./PlacementRoute");
+const BatchRoute = require("./BatchRoute");
+const TalentRoute = require("./TalentRoute");
+const HiringRoute = require("./HiringRoute");
+const InstructorRoute = require("./InstructorRoute");
+const CurriculumRoute = require("./CurriculumRoute");
+const CurriculumMateriRoute = require("./CurriculumMateriRoute");
+const CurriculumReviewsRoute = require("./CurriculumReviewsRoute");
+const JobRoute = require("./JobRoute");
+const BootcampRoute = require("./BootcampRoute");
+const BatchesRoute = require("./BatchesRoute");
+const SettingRoute = require("./SettingRoute");
+// const ImageRoute = require("./ImageRoute");
+const ProcessBootCampRoute = require("./ProcessBootcampRoute");
+const TaleTimelineRoute = require("./TalentTimelineRoute");
+const ClientRoute = require("./ClientRoute");
+
+router.use("/user", UserRoute);
+router.use("/placement", PlacementRoute);
+router.use("/batch", BatchRoute);
+router.use("/talent", TalentRoute);
+router.use("/instuctor", InstructorRoute);
+router.use("/curriculum", CurriculumRoute);
+router.use("/curriculummateri", CurriculumMateriRoute);
+router.use("/curriculumreview", CurriculumReviewsRoute);
+router.use("/job", JobRoute);
+router.use("/bootcamp", BootcampRoute);
+router.use("/processbootcamp", ProcessBootCampRoute);
+router.use("/batches", BatchesRoute);
+router.use("/setting", SettingRoute);
+router.use("/taletimeline", TaleTimelineRoute);
+router.use("/hiring", HiringRoute);
+router.use("/client", ClientRoute);
+// router.use("/" + "/hiringg", Hiring2Route);
+// router.use(process.env.URL_IMAGE + "/", ImageRoute);
+
+module.exports = router;
