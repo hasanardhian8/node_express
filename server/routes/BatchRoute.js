@@ -1,14 +1,12 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
+const BatchController = require("../controller/BatchController");
 
-const router = Router();
+router.get("/", BatchController.findBatch);
+router.get("/:id", BatchController.findBatchById);
+router.put("/:id", BatchController.UpdateBatch, BatchController.AddMembers);
+router.put("/status/:id", BatchController.UpdateBatchStatus);
+router.delete("/:id", BatchController.deleteBatch);
+router.get("/images/:filename", UploadDownloadHelper.showProductImage);
 
-router.get("/",IndexController.BatchController.findBatch);
-router.get("/:id",IndexController.BatchController.findBatchById);
-router.put("/:id",IndexController.BatchController.UpdateBatch,IndexController.BatchController.AddMembers);
-router.put("/status/:id",IndexController.BatchController.UpdateBatchStatus)
-router.delete("/:id",IndexController.BatchController.deleteBatch);
-router.get("/images/:filename",UploadDownloadHelper.showProductImage)
-
-export default router;
+module.exports = router;

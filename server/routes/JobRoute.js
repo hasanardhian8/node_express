@@ -1,17 +1,12 @@
-import {Router} from "express";
-import IndexController from "../controller/IndexController";
-import uploadDownload from '../middleware/uploadDownload';
-import UploadDownloadHelper from '../helpers/UploadDownloadHelper';
-const router= Router()
+const uploadDownload = require("../middleware/uploadDownload");
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-router.post(
-    '/',
-    uploadDownload.uploadFiles,
-    IndexController.JobController.create
-  );
-router.get('/',IndexController.JobController.list)
-router.put('/:id', IndexController.JobController.update)
-router.get('/images/:filename', uploadDownload.show_curr_logo);
+const JobController = require("../controller/JobController");
 
+router.post("/", uploadDownload.uploadFiles, JobController.create);
+router.get("/", JobController.list);
+router.put("/:id", JobController.update);
+router.get("/images/:filename", uploadDownload.show_curr_logo);
 
-export default router
+module.exports = router;

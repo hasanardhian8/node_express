@@ -1,12 +1,10 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const BootcampController = require("../controller/BootcampController");
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+router.get("/", BootcampController.Bootcamp);
+router.get("/regular", BootcampController.Regular);
+router.get("/berbayar", BootcampController.Berbayar);
+router.get("/images/:filename", UploadDownloadHelper.showProductImage);
 
-router.get("/", IndexController.BootcampController.Bootcamp);
-router.get("/regular", IndexController.BootcampController.Regular);
-router.get("/berbayar", IndexController.BootcampController.Berbayar);
-router.get("/images/:filename",UploadDownloadHelper.showProductImage)
-
-export default router;
+module.exports = router;

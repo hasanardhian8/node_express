@@ -1,11 +1,10 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+const TalentTimelineController = require("../controller/TalentTimelineController");
 
-router.get("/:id", IndexController.TalentTimelineController.findTime);
-router.post("/", UploadDownloadHelper.uploadMultipleFile, IndexController.TalentTimelineController.createTale);
-router.get("/", IndexController.TalentTimelineController.List);
+router.get("/:id", TalentTimelineController.findTime);
+router.post("/", UploadDownloadHelper.uploadMultipleFile, TalentTimelineController.createTale);
+router.get("/", TalentTimelineController.List);
 
-export default router;
+module.exports = router;

@@ -1,10 +1,8 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-
-const router = Router();
+const router = require("express").Router();
+const ClientController = require("../controller/ClientController");
 
 // get
-router.get("/", IndexController.ClientController.list);
-router.get("/:id", IndexController.ClientController.findClient);
+router.get("/", ClientController.list);
+router.get("/:id", ClientController.findClient);
 
-export default router;
+module.exports = router;

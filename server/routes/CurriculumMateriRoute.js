@@ -1,15 +1,9 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const CurriculumMateriController = require("../controller/CurriculumMateriController");
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+router.get("/", CurriculumMateriController.findAll);
+router.post("/", UploadDownloadHelper.uploadSingleFile, CurriculumMateriController.create);
+router.get("/:id", CurriculumMateriController.findOne);
 
-router.get("/", IndexController.CurriculumMateriController.findAll);
-router.post(
-  "/",
-  UploadDownloadHelper.uploadSingleFile,
-  IndexController.CurriculumMateriController.create
-);
-router.get("/:id", IndexController.CurriculumMateriController.findOne);
-
-export default router;
+module.exports = router;

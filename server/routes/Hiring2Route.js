@@ -1,10 +1,9 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper"
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+const Hiring2Controller = require("../controller/Hiring2Controller");
 
-router.get("/:id", IndexController.Hiring2Controller.findOne);
+router.get("/:id", Hiring2Controller.findOne);
 router.get("/images/:filename", UploadDownloadHelper.showProductImage);
 
-export default router;
+module.exports = router;

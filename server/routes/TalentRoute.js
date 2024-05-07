@@ -1,13 +1,12 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+const TalentController = require("../controller/TalentController");
 
-router.get("/detail", IndexController.TalentController.detail);
-router.get("/:id", IndexController.TalentController.findOne);
-router.get("/", IndexController.TalentController.findAll);
+router.get("/detail", TalentController.detail);
+router.get("/:id", TalentController.findOne);
+router.get("/", TalentController.findAll);
 router.get("/images/:filename", UploadDownloadHelper.showProductImage);
-router.post('/',UploadDownloadHelper.uploadMultipleFile,IndexController.TalentController.createEmp)
+router.post("/", UploadDownloadHelper.uploadMultipleFile, TalentController.createEmp);
 
-export default router;
+module.exports = router;

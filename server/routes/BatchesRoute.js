@@ -1,9 +1,9 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-const router = Router();
+const router = require("express").Router();
+const BatchesController = require("../controller/BatchesController");
 
-router.get("/",IndexController.BatchesController.findAllRows);
-router.get("/talent",IndexController.BatchesController.findTalentBatch);
-router.get("/batch",IndexController.BatchesController.findBatch);
-router.post("/",IndexController.BatchesController.createBatch,IndexController.BatchesController.updateCurriculumData,IndexController.BatchesController.updateTalent,IndexController.BatchesController.createTalentBatch);
-export default router;
+router.get("/", BatchesController.findAllRows);
+router.get("/talent", BatchesController.findTalentBatch);
+router.get("/batch", BatchesController.findBatch);
+router.post("/", BatchesController.createBatch, BatchesController.updateCurriculumData, BatchesController.updateTalent, BatchesController.createTalentBatch);
+
+module.exports = router;

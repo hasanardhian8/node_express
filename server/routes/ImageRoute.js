@@ -1,8 +1,6 @@
-import { Router } from "express";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
-
-const router = Router();
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
 router.get("/:filename", UploadDownloadHelper.showProductImage);
 
-export default router;
+module.exports = router;

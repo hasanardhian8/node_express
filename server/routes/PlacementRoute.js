@@ -1,11 +1,10 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
+const PlacementController = require("../controller/PlacementController");
 
-router.get("/", IndexController.PlacementController.List);
+router.get("/", PlacementController.List);
 router.get("/images/:filename", UploadDownloadHelper.showProductImage);
-router.delete("/:id", IndexController.PlacementController.hapusPlace);
+router.delete("/:id", PlacementController.hapusPlace);
 
-export default router;
+module.exports = router;

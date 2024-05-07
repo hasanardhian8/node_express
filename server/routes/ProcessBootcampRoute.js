@@ -1,10 +1,10 @@
-import { Router } from "express";
-import IndexController from "../controller/IndexController";
-import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
+const router = require("express").Router();
+const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
-const router = Router();
-router.post("/", UploadDownloadHelper.uploadMultipleFile, IndexController.ProcessBootcampController.createProcessBootamp);
-router.put("/:id", UploadDownloadHelper.uploadMultipleFile, IndexController.ProcessBootcampController.updateProcessBootamp);
-router.put("data/:id", IndexController.ProcessBootcampController.updateProcessBootampNoFile);
+const ProcessBootcampController = require("../controller/ProcessBootcampController");
 
-export default router;
+router.post("/", UploadDownloadHelper.uploadMultipleFile, ProcessBootcampController.createProcessBootamp);
+router.put("/:id", UploadDownloadHelper.uploadMultipleFile, ProcessBootcampController.updateProcessBootamp);
+router.put("data/:id", ProcessBootcampController.updateProcessBootampNoFile);
+
+module.exports = router;
