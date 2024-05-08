@@ -1,15 +1,17 @@
-const findAll = async (req, res) => {
+const Curriculum_Materi = require("../models").curriculum_materi;
+
+module.exports.findAll = async (req, res) => {
   try {
-    const result = await req.context.models.curriculum_materi.findAll();
+    const result = await Curriculum_Materi.findAll();
     return res.send(result);
   } catch (error) {
     return res.status(404).send("no data found");
   }
 };
 
-const findOne = async (req, res) => {
+module.exports.const.findOne = async (req, res) => {
   try {
-    const result = await req.context.models.curriculum_materi.findOne({
+    const result = await Curriculum_Materi.findOne({
       where: { cuma_id: req.params.id },
     });
     return res.send(result);
@@ -18,7 +20,7 @@ const findOne = async (req, res) => {
   }
 };
 
-const create = async (req, res, next) => {
+module.exports.const.create = async (req, res, next) => {
   try {
     const { files, fields } = req.fileAttrb;
     const createObj = {};
@@ -36,16 +38,10 @@ const create = async (req, res, next) => {
       createObj[fieldName] = newFilename;
     }
 
-    const result = await req.context.models.curriculum_materi.create(createObj);
+    const result = await Curriculum_Materi.create(createObj);
 
     return res.json(result);
   } catch (error) {
     return next(error);
   }
-};
-
-export default {
-  findAll,
-  findOne,
-  create,
 };

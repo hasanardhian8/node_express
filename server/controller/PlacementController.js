@@ -1,17 +1,21 @@
-const List = async (req, res) => {
+const Placement = require("../models").placement;
+const Client = require("../models").client;
+const Talent_Placement = require("../models").talent_placement;
+const Talent = require("../models").talent;
+module.exports.List = async (req, res) => {
   try {
-    const result = await req.context.models.placement.findAll({
+    const result = await Placement.findAll({
       include: [
         {
-          model: req.context.models.client,
+          model: Client,
           as: "place_client",
         },
         {
-          model: req.context.models.talent_placement,
+          model: Talent_Placement,
           as: "talent_placements",
           include: [
             {
-              model: req.context.models.talent,
+              model: Talent,
               as: "tapl_tale",
             },
           ],
@@ -24,23 +28,23 @@ const List = async (req, res) => {
   }
 };
 
-const findOne = async (req, res, next) => {
+module.exports.findOne = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const result = await req.context.models.placement.findOne({
+    const result = await Placement.findOne({
       where: { place_id: id },
       include: [
         {
-          model: req.context.models.client,
+          model: Client,
           as: "place_client",
         },
         {
-          model: req.context.models.talent_placement,
+          model: Talent_Placement,
           as: "talent_placements",
           include: [
             {
-              model: req.context.models.talent,
+              model: Talent,
               as: "tapl_tale",
             },
           ],
@@ -53,10 +57,10 @@ const findOne = async (req, res, next) => {
   }
 };
 
-const hapusPlace = async (req, res) => {
+module.exports.hapusPlace = async (req, res) => {
   const id = req.params.id;
   try {
-    const result = await req.context.models.placement.destroy({
+    const result = await Placement.destroy({
       where: {
         place_id: parseInt(id),
       },
@@ -65,10 +69,4 @@ const hapusPlace = async (req, res) => {
   } catch (error) {
     return res.status(404).send("data not found");
   }
-};
-
-export default {
-  List,
-  findOne,
-  hapusPlace,
 };

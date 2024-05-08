@@ -1,7 +1,9 @@
-const createProcessBootamp = async (req, res) => {
+const Talent = require("../models").talent;
+
+module.exports.createProcessBootamp = async (req, res) => {
   const { files, fields } = req.fileAttrb;
   try {
-    const result = await req.context.models.talent.create({
+    const result = await Talent.create({
       tale_fullname: fields[0].value,
       tale_birthdate: fields[1].value,
       tale_major: fields[2].value,
@@ -21,12 +23,12 @@ const createProcessBootamp = async (req, res) => {
   }
 };
 
-const updateProcessBootamp = async (req, res) => {
+module.exports.updateProcessBootamp = async (req, res) => {
   const { files, fields } = req.fileAttrb;
 
   if (files[0].fieldName === "tale_resume" && files[1].fieldName === "photo") {
     try {
-      const result = await req.context.models.talent.update(
+      const result = await Talent.update(
         {
           tale_fullname: fields[0].value,
           tale_birthdate: fields[1].value,
@@ -47,7 +49,7 @@ const updateProcessBootamp = async (req, res) => {
     }
   } else if (files[0].fieldName === "tale_resume") {
     try {
-      const result = await req.context.models.talent.update(
+      const result = await Talent.update(
         {
           tale_fullname: fields[0].value,
           tale_birthdate: fields[1].value,
@@ -67,7 +69,7 @@ const updateProcessBootamp = async (req, res) => {
     }
   } else if (files[0].fieldName === "tale_photo") {
     try {
-      const result = await req.context.models.talent.update(
+      const result = await Talent.update(
         {
           tale_fullname: fields[0].value,
           tale_birthdate: fields[1].value,
@@ -88,10 +90,10 @@ const updateProcessBootamp = async (req, res) => {
   }
 };
 
-const updateProcessBootampNoFile = async (req, res) => {
+module.exports.updateProcessBootampNoFile = async (req, res) => {
   const { tale_fullname, tale_birthdate, tale_education, tale_major, tale_school_name, tale_handphone, tale_bootcamp, tale_motivation, tale__user_id } = req.body;
   console.log(req.body);
-  const result = await req.context.models.talent.update(
+  const result = await Talent.update(
     {
       tale_fullname,
       tale_birthdate,
@@ -108,10 +110,4 @@ const updateProcessBootampNoFile = async (req, res) => {
     }
   );
   return res.send(result);
-};
-
-export default {
-  createProcessBootamp,
-  updateProcessBootamp,
-  updateProcessBootampNoFile,
 };

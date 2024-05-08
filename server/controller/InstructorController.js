@@ -1,15 +1,17 @@
-const findAll = async (req, res) => {
+const Instructor = require("../models").instructor;
+
+module.exports.findAll = async (req, res) => {
   try {
-    const result = await req.context.models.instructor.findAll();
+    const result = await Instructor.findAll();
     return res.send(result);
   } catch (error) {
     return res.status(404).send("no data found");
   }
 };
 
-const findOne = async (req, res) => {
+module.exports.findOne = async (req, res) => {
   try {
-    const result = await req.context.models.instructor.findOne({
+    const result = await Instructor.findOne({
       where: { inst_id: req.params.id },
     });
     return res.send(result);
@@ -18,10 +20,10 @@ const findOne = async (req, res) => {
   }
 };
 
-const updateInst = async (req, res) => {
+module.exports.updateInst = async (req, res) => {
   const { files, fields } = req.fileAttrb;
   try {
-    const result = await req.context.models.instructor.update(
+    const result = await Instructor.update(
       {
         inst_photo: files[0].file.newFilename,
       },
@@ -35,10 +37,4 @@ const updateInst = async (req, res) => {
       error: error,
     });
   }
-};
-
-export default {
-  findAll,
-  findOne,
-  updateInst,
 };

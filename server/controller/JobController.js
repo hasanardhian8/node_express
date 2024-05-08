@@ -1,10 +1,10 @@
-import { sequelize } from "../models/init-models";
+const Job = require("../models").jobs;
 
-const create = async (req, res) => {
+module.exports.create = async (req, res) => {
   const { files, fields } = req.fileAttrb;
 
   try {
-    const jobs = await req.context.models.jobs.create({
+    const jobs = await Job.create({
       // jobs_post_no: fields[0].value,
       jobs_title: fields[0].value,
       jobs_start_date: fields[1].value,
@@ -27,28 +27,29 @@ const create = async (req, res) => {
       jobs_user_id: parseInt(fields[18].value),
       jobs_client_id: parseInt(fields[19].value),
       jobs_photo: files[0].file.newFilename,
-
     });
-    return res.send(jobs)
+    return res.send(jobs);
   } catch (error) {
-    res.status(404).json({message : error.message})
+    res.status(404).json({ message: error.message });
   }
 };
 
-const list = async (req, res) => {
+module.exports.list = async (req, res) => {
   try {
-    const jobs  = await req.context.models.jobs.findAll({
-      include : [{
-          all : true
-      }]
-  });
-    return res.send(jobs)
+    const jobs = await Job.findAll({
+      include: [
+        {
+          all: true,
+        },
+      ],
+    });
+    return res.send(jobs);
   } catch (error) {
-    res.status(404).json({message : error.message})
+    res.status(404).json({ message: error.message });
   }
 };
 
-const update = async (req, res) => {
+module.exports.update = async (req, res) => {
   const {
     jobs_post_no,
     jobs_title,
@@ -72,7 +73,7 @@ const update = async (req, res) => {
     jobs_client_id,
   } = req.body;
   try {
-    const jobs = await req.constext.models.jobs.update(
+    const jobs = await Job.update(
       {
         jobs_post_no: jobs_post_no,
         jobs_title: jobs_title,
@@ -101,10 +102,4 @@ const update = async (req, res) => {
   } catch (error) {
     return res.send(404).res.send("404 Not found");
   }
-};
-
-export default {
-  create,
-  list,
-  update,
 };

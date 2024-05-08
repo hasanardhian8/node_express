@@ -1,17 +1,24 @@
-const findAll = async (req, res) => {
+const Talent = require("../models").talent;
+const Talent_Batch = require("../models").talent_batch;
+const Batch = require("../models").batch;
+const Instructor = require("../models").instructor;
+const Placement = require("../models").placement;
+const Talent_Placement = require("../models").talent_placement;
+
+module.exports.findAll = async (req, res) => {
   try {
-    const result = await req.context.models.talent.findAll({
+    const result = await Talent.findAll({
       include: [
         {
-          model: await req.context.models.talent_batch,
+          model: await Talent_Batch,
           as: "talent_batches",
           include: [
             {
-              model: await req.context.models.batch,
+              model: await Batch,
               as: "taba_batch",
               include: [
                 {
-                  model: await req.context.models.instructor,
+                  model: await Instructor,
                   as: "batch_inst",
                 },
               ],
@@ -19,11 +26,11 @@ const findAll = async (req, res) => {
           ],
         },
         {
-          model: req.context.models.talent_placement,
+          model: Talent_Placement,
           as: "talent_placements",
           include: [
             {
-              model: req.context.models.placement,
+              model: Placement,
               as: "tapl_place",
             },
           ],
@@ -36,23 +43,23 @@ const findAll = async (req, res) => {
   }
 };
 
-const findOne = async (req, res, next) => {
+module.exports.findOne = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const result = await req.context.models.talent.findOne({
+    const result = await Talent.findOne({
       where: { tale_id: id },
       include: [
         {
-          model: await req.context.models.talent_batch,
+          model: await Talent_Batch,
           as: "talent_batches",
           include: [
             {
-              model: await req.context.models.batch,
+              model: await Batch,
               as: "taba_batch",
               include: [
                 {
-                  model: await req.context.models.instructor,
+                  model: await Instructor,
                   as: "batch_inst",
                 },
               ],
@@ -60,11 +67,11 @@ const findOne = async (req, res, next) => {
           ],
         },
         {
-          model: req.context.models.talent_placement,
+          model: Talent_Placement,
           as: "talent_placements",
           include: [
             {
-              model: req.context.models.placement,
+              model: Placement,
               as: "tapl_place",
             },
           ],
@@ -78,11 +85,11 @@ const findOne = async (req, res, next) => {
   }
 };
 
-const createEmp = async (req, res) => {
+module.exports.createEmp = async (req, res) => {
   const { files, fields } = req.fileAttrb;
   console.log();
   try {
-    const result = await req.context.models.talent.create({
+    const result = await Talent.create({
       tale_fullname: fields[0].value,
       tale_birthdate: new Date(),
       tale_education: fields[1].value,
@@ -103,9 +110,9 @@ const createEmp = async (req, res) => {
   }
 };
 
-const detail = async (req, res) => {
+module.exports.detail = async (req, res) => {
   try {
-    const result = await req.context.models.talent.findAll({
+    const result = await Talent.findAll({
       include: [
         {
           all: true,
@@ -121,11 +128,4 @@ const detail = async (req, res) => {
   } catch (error) {
     return res.status(404).send("no data found");
   }
-};
-
-export default {
-  findAll,
-  createEmp,
-  detail,
-  findOne,
 };
