@@ -32,7 +32,9 @@ db.talent = require("./talent.js")(sequelize, Sequelize);
 db.talent_batch = require("./talent_batch.js")(sequelize, Sequelize);
 db.talent_experience = require("./talent_experience.js")(sequelize, Sequelize);
 db.talent_placement = require("./talent_placement.js")(sequelize, Sequelize);
+db.talent_experience_media = require("./talent_experience_media.js")(sequelize, Sequelize);
 db.talent_timeline = require(".talent_timeline.js")(sequelize, Sequelize);
+db.time_line = require("./time_line.js")(sequelize, Sequelize);
 db.users = require("./users.js")(sequelize, Sequelize);
 db.users_client = require("./users_client.js")(sequelize, Sequelize);
 db.user_roles = require("./user_roles.js")(sequelize, Sequelize);
@@ -82,11 +84,11 @@ db.talent.hasMany(db.talent_placement, { as: "talent_placements", foreignKey: "t
 db.talent_timeline.belongsTo(db.talent, { as: "tati_tale", foreignKey: "tati_tale_id" });
 db.talent.hasMany(db.talent_timeline, { as: "talent_timelines", foreignKey: "tati_tale_id" });
 
-talent_experience_media.belongsTo(db.talent_experience, { as: "teme_taex", foreignKey: "teme_taex_id" });
-db.talent_experience.hasMany(talent_experience_media, { as: "talent_experience_media", foreignKey: "teme_taex_id" });
+db.talent_experience_media.belongsTo(db.talent_experience, { as: "teme_taex", foreignKey: "teme_taex_id" });
+db.talent_experience.hasMany(db.talent_experience_media, { as: "talent_experience_media", foreignKey: "teme_taex_id" });
 
-db.talent_timeline.belongsTo(time_line, { as: "tati_timeline_name_time_line", foreignKey: "tati_timeline_name" });
-time_line.hasMany(db.talent_timeline, { as: "talent_timelines", foreignKey: "tati_timeline_name" });
+db.talent_timeline.belongsTo(db.time_line, { as: "tati_timeline_name_time_line", foreignKey: "tati_timeline_name" });
+db.time_line.hasMany(db.talent_timeline, { as: "talent_timelines", foreignKey: "tati_timeline_name" });
 
 db.batch.belongsTo(db.users, { as: "batch_user", foreignKey: "batch_user_id" });
 db.users.hasMany(db.batch, { as: "batches", foreignKey: "batch_user_id" });

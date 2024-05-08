@@ -1,34 +1,32 @@
-const findAll = async (req, res) => {
+const Curriculum = require("../models").curriculum;
+const Instructor = require("../models").instructor;
+const Batch = require("../models").batch;
+const Talent_Batch = require("../models").talent_batch;
+const Talent = require("../models").talent;
+const Curriculum_Materi = require("../models").curriculum_materi;
+
+module.exports.findAll = async (req, res) => {
   try {
-    const result = await req.context.models.curriculum.findAll({
-      attributes: [
-        "curr_id",
-        "curr_name",
-        "curr_title",
-        "curr_duration",
-        "curr_total_talents",
-        "curr_total_batch",
-        "curr_learning_type",
-        "curr_rating",
-      ],
+    const result = await Curriculum.findAll({
+      attributes: ["curr_id", "curr_name", "curr_title", "curr_duration", "curr_total_talents", "curr_total_batch", "curr_learning_type", "curr_rating"],
       include: [
         {
-          model: req.context.models.instructor,
+          model: Instructor,
           as: "curr_inst",
           attributes: ["inst_name"],
           include: [
             {
-              model: req.context.models.batch,
+              model: Batch,
               as: "batches",
               attributes: ["batch_name", "batch_type"],
               include: [
                 {
-                  model: req.context.models.talent_batch,
+                  model: Talent_Batch,
                   as: "talent_batches",
                   attributes: ["taba_tale_id"],
                   include: [
                     {
-                      model: req.context.models.talent,
+                      model: Talent,
                       as: "taba_tale",
                       attributes: ["tale_fullname"],
                     },
@@ -46,8 +44,8 @@ const findAll = async (req, res) => {
   }
 };
 
-const createCurr = async (req, res, next) => {
-  const { 
+module.exports.createCurr = async (req, res, next) => {
+  const {
     curr_name,
     curr_title,
     curr_headline,
@@ -63,12 +61,12 @@ const createCurr = async (req, res, next) => {
     curr_createdon,
     curr_lastupdate,
     curr_logo,
-    curr_inst_id
-   } = req.body;
+    curr_inst_id,
+  } = req.body;
   try {
-    const result = await req.context.models.curriculum.create({
+    const result = await Curriculum.create({
       curr_name: curr_name,
-      curr_title: curr_title, 
+      curr_title: curr_title,
       curr_headline: curr_headline,
       curr_description: curr_description,
       curr_duration: curr_duration,
@@ -88,23 +86,23 @@ const createCurr = async (req, res, next) => {
     next();
     return res.send("success");
   } catch (error) {
-    return res.send("error")
+    return res.send("error");
   }
 };
 
-const findOne = async (req, res, next) => {
+module.exports.findOne = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const result = await req.context.models.curriculum.findOne({
+    const result = await Curriculum.findOne({
       where: { curr_id: id },
       include: [
         {
-          model: req.context.models.instructor,
+          model: Instructor,
           as: "curr_inst",
         },
         {
-          model: req.context.models.curriculum_materi,
+          model: Curriculum_Materi,
           as: "curriculum_materis",
         },
       ],
@@ -116,7 +114,7 @@ const findOne = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+module.exports.update = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { files, fields } = req.fileAttrb;
@@ -138,7 +136,7 @@ const update = async (req, res, next) => {
     updateObj.curr_createdon = updateObj.curr_createdon || new Date();
     updateObj.curr_lastupdate = new Date();
 
-    const result = await req.context.models.curriculum.update(updateObj, {
+    const result = await Curriculum.update(updateObj, {
       where: { curr_id: id },
       returning: true,
     });
@@ -147,11 +145,4 @@ const update = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-};
-
-export default {
-  findAll,
-  createCurr,
-  findOne,
-  update,
 };
