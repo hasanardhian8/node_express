@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Batch = sequelize.define(
+  const Jtap = sequelize.define(
     "jobs_talent_apply",
     {
       jtap_id: {
@@ -47,5 +47,5 @@ module.exports = (sequelize, DataTypes) => {
       ],
     }
   );
-  return Client;
+  return Jtap;
 };

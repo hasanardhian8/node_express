@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Curr = sequelize.define(
+  const Inst = sequelize.define(
     "instructor",
     {
       inst_id: {

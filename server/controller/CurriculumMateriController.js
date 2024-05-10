@@ -9,7 +9,7 @@ module.exports.findAll = async (req, res) => {
   }
 };
 
-module.exports.const.findOne = async (req, res) => {
+module.exports.findOne = async (req, res) => {
   try {
     const result = await Curriculum_Materi.findOne({
       where: { cuma_id: req.params.id },
@@ -20,7 +20,7 @@ module.exports.const.findOne = async (req, res) => {
   }
 };
 
-module.exports.const.create = async (req, res, next) => {
+module.exports.create = async (req, res, next) => {
   try {
     const { files, fields } = req.fileAttrb;
     const createObj = {};

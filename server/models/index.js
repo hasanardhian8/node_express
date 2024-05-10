@@ -33,7 +33,7 @@ db.talent_batch = require("./talent_batch.js")(sequelize, Sequelize);
 db.talent_experience = require("./talent_experience.js")(sequelize, Sequelize);
 db.talent_placement = require("./talent_placement.js")(sequelize, Sequelize);
 db.talent_experience_media = require("./talent_experience_media.js")(sequelize, Sequelize);
-db.talent_timeline = require(".talent_timeline.js")(sequelize, Sequelize);
+db.talent_timeline = require("./talent_timeline.js")(sequelize, Sequelize);
 db.time_line = require("./time_line.js")(sequelize, Sequelize);
 db.users = require("./users.js")(sequelize, Sequelize);
 db.users_client = require("./users_client.js")(sequelize, Sequelize);
@@ -51,14 +51,14 @@ db.client.hasMany(db.placement, { as: "placements", foreignKey: "place_client_id
 db.users_client.belongsTo(db.client, { as: "uscl_client", foreignKey: "uscl_client_id" });
 db.client.hasMany(db.users_client, { as: "users_clients", foreignKey: "uscl_client_id" });
 
-db.db.curriculum_materi.belongsTo(db.curriculum, { as: "cuma_curr", foreignKey: "cuma_curr_id" });
-db.curriculum.hasMany(db.db.curriculum_materi, { as: "curriculum_materis", foreignKey: "cuma_curr_id" });
+db.curriculum_materi.belongsTo(db.curriculum, { as: "cuma_curr", foreignKey: "cuma_curr_id" });
+db.curriculum.hasMany(db.curriculum_materi, { as: "curriculum_materis", foreignKey: "cuma_curr_id" });
 
-db.db.curriculum_reviews.belongsTo(db.curriculum, { as: "cure_curr", foreignKey: "cure_curr_id" });
-db.curriculum.hasMany(db.db.curriculum_reviews, { as: "db.db.curriculum_reviews", foreignKey: "cure_curr_id" });
+db.curriculum_reviews.belongsTo(db.curriculum, { as: "cure_curr", foreignKey: "cure_curr_id" });
+db.curriculum.hasMany(db.curriculum_reviews, { as: "db.curriculum_reviews", foreignKey: "cure_curr_id" });
 
-db.db.curriculum_materi.belongsTo(db.db.curriculum_materi, { as: "cuma_cuma", foreignKey: "cuma_cuma_id" });
-db.db.curriculum_materi.hasMany(db.db.curriculum_materi, { as: "curriculum_materis", foreignKey: "cuma_cuma_id" });
+db.curriculum_materi.belongsTo(db.curriculum_materi, { as: "cuma_cuma", foreignKey: "cuma_cuma_id" });
+db.curriculum_materi.hasMany(db.curriculum_materi, { as: "curriculum_materis", foreignKey: "cuma_cuma_id" });
 
 db.batch.belongsTo(db.instructor, { as: "batch_inst", foreignKey: "batch_inst_id" });
 db.instructor.hasMany(db.batch, { as: "batches", foreignKey: "batch_inst_id" });
@@ -96,8 +96,8 @@ db.users.hasMany(db.batch, { as: "batches", foreignKey: "batch_user_id" });
 db.curriculum.belongsTo(db.users, { as: "curr_user", foreignKey: "curr_user_id" });
 db.users.hasMany(db.curriculum, { as: "curriculums", foreignKey: "curr_user_id" });
 
-db.db.curriculum_reviews.belongsTo(db.users, { as: "curr_user", foreignKey: "curr_user_id" });
-db.users.hasMany(db.db.curriculum_reviews, { as: "db.db.curriculum_reviews", foreignKey: "curr_user_id" });
+db.curriculum_reviews.belongsTo(db.users, { as: "curr_user", foreignKey: "curr_user_id" });
+db.users.hasMany(db.curriculum_reviews, { as: "db.curriculum_reviews", foreignKey: "curr_user_id" });
 
 db.jobs.belongsTo(db.users, { as: "jobs_user", foreignKey: "jobs_user_id" });
 db.users.hasMany(db.jobs, { as: "db.jobs", foreignKey: "jobs_user_id" });

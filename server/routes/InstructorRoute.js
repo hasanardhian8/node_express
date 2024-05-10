@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
-const InstructorController = require("../controller/InstructionsController");
+const Instructorcontroller = require("../controller/InstructorController");
 
-router.get("/", InstructorController.findAll);
-router.get("/images/:filename", UploadDownloadHelper.showProductImage);
-router.get("/:id", InstructorController.findOne);
-router.put("/:id", uploadDownloadHelper.uploadSingleFile, InstructorController.updateInst);
+router.get("/", Instructorcontroller.findAll);
+//router.get("/images/:filename", UploadDownloadHelper.showProductImage);
+router.get("/:id", Instructorcontroller.findOne);
+//router.put("/:id", uploadDownloadHelper.uploadSingleFile, InstructorController.updateInst);
 
 module.exports = router;

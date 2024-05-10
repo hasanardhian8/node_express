@@ -5,6 +5,6 @@ const HiringController = require("../controller/HiringController");
 
 router.get("/", HiringController.findAll);
 router.get("/:id", HiringController.findOne);
-router.get("/images/:filename", UploadDownloadHelper.showProductImage);
+//router.get("/images/:filename", UploadDownloadHelper.showProductImage);
 
 module.exports = router;

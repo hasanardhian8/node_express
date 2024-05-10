@@ -3,7 +3,7 @@ const CurriculumMateriController = require("../controller/CurriculumMateriContro
 const UploadDownloadHelper = require("../helpers/UploadDownloadHelper");
 
 router.get("/", CurriculumMateriController.findAll);
-router.post("/", UploadDownloadHelper.uploadSingleFile, CurriculumMateriController.create);
+//router.post("/", UploadDownloadHelper.uploadSingleFile, CurriculumMateriController.create);
 router.get("/:id", CurriculumMateriController.findOne);
 
 module.exports = router;
