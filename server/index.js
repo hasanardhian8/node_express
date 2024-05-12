@@ -25,10 +25,7 @@ app.use(compress());
 app.use(cors());
 
 // load models dan simpan di req.context
-app.use(async (req, res, next) => {
-  req.context = { models };
-  next();
-});
+
 app.use(process.env.URL_API, routes);
 
 db.sequelize
