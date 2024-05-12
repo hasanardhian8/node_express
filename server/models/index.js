@@ -18,8 +18,11 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.batch = require("./batch.js")(sequelize, Sequelize);
+db.users = require("./users.js")(sequelize, Sequelize);
+db.users_client = require("./users_client.js")(sequelize, Sequelize);
+db.user_roles = require("./user_roles.js")(sequelize, Sequelize);
 db.client = require("./client.js")(sequelize, Sequelize);
+db.batch = require("./batch.js")(sequelize, Sequelize);
 db.curriculum = require("./curriculum.js")(sequelize, Sequelize);
 db.curriculum_materi = require("./curriculum_materi.js")(sequelize, Sequelize);
 db.curriculum_reviews = require("./curriculum_reviews.js")(sequelize, Sequelize);
@@ -35,9 +38,6 @@ db.talent_placement = require("./talent_placement.js")(sequelize, Sequelize);
 db.talent_experience_media = require("./talent_experience_media.js")(sequelize, Sequelize);
 db.talent_timeline = require("./talent_timeline.js")(sequelize, Sequelize);
 db.time_line = require("./time_line.js")(sequelize, Sequelize);
-db.users = require("./users.js")(sequelize, Sequelize);
-db.users_client = require("./users_client.js")(sequelize, Sequelize);
-db.user_roles = require("./user_roles.js")(sequelize, Sequelize);
 
 db.talent_batch.belongsTo(db.batch, { as: "taba_batch", foreignKey: "taba_batch_id" });
 db.batch.hasMany(db.talent_batch, { as: "talent_batches", foreignKey: "taba_batch_id" });
